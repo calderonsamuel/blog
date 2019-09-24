@@ -1,0 +1,16 @@
+---
+title: Primer post
+author: Samuel Calderon
+date: '2019-09-23'
+slug: primer-post
+categories:
+  - R
+tags:
+  - test
+---
+
+## Post de prueba {#titulo2}
+
+Prueba de nota al pie^[Sale al final de la página].
+
+También se puede probar volver al [título 2](#titulo2)
