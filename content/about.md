@@ -1,6 +1,6 @@
 ---
 date: "2016-05-05T21:48:51-07:00"
-title: About
+title: Acerca del blog
 ---
 
-This is a "hello world" example website for the [**blogdown**](https://github.com/rstudio/blogdown) package. The theme was forked from [@jrutheiser/hugo-lithium-theme](https://github.com/jrutheiser/hugo-lithium-theme) and modified by [Yihui Xie](https://github.com/yihui/hugo-lithium).
+Este es un blog hehco con el paquete [**blogdown**](https://github.com/rstudio/blogdown) en RStudio. el tema utilizado se puede encontrar en el repositorio de [Yihui Xie](https://github.com/yihui/hugo-lithium).
