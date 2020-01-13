@@ -1,10 +1,8 @@
 ---
 title: Inicios
 author: Samuel Calderon
-date: '2020-01-13'
+date: '2020-01-12'
 slug: inicios
-categories: []
-tags: []
 ---
 
 ## ¿Para qué un blog?
