@@ -1,8 +1,8 @@
 ---
-title: "Inicios"
-author: "Samuel Calderon"
+title: Inicios
+author: Samuel Calderon
 date: '2020-01-13'
 slug: inicios
-tags: []
 categories: []
+tags: []
 ---
