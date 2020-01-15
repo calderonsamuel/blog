@@ -1,0 +1,42 @@
+---
+title: "Acerca del blog"
+---
+```{r include=FALSE}
+library(ggplot2)
+```
+
+Este es un blog hecho con el paquete [**blogdown**](https://github.com/rstudio/blogdown) en RStudio. El tema utilizado es una adaptación de `hugo-lithium`, que se puede encontrar en el repositorio de [Yihui Xie](https://github.com/yihui/hugo-lithium).
+
+## ¿Qué es blogdown?
+
+Es un paquete para R desarrollado por el equipo de [RStudio](https://rstudio.com/about/) que tiene la finalidad de potenciar el uso de [Rmarkdown](https://rmarkdown.rstudio.com/) para la producción de páginas web estáticas.
+
+## ¿Qué es Rmarkdown?
+
+Es un paquete para R que potencia las funciones de [Markdown](https://es.wikipedia.org/wiki/Markdown). Markdown es un lenguaje/herramienta que facilita la edición de textos para publicación web. En la actualidad es ampliamente utilizado en diferentes tipos de plataformas debido a la sencillez de su uso. La traducción al castellano de *R for Data Science* incluye un [sub capítulo](https://es.r4ds.hadley.nz/r-markdown.html#formateo-de-texto-con-markdown) con explicaciones básicas.
+
+Markdown facilita insertar bloques de código en nuestro texto web respetando la sintaxis del lenguaje en el que se escribe.
+
+```r
+# Este es un bloque de código R
+ggplot(data = iris, 
+       mapping = aes(
+         x = Sepal.Length, 
+         y = Petal.Length, 
+         color = Species))+
+  geom_jitter()+
+  ggtitle(label = "Gráfico de output")
+```
+
+Sin embargo, usando Rmarkdown podemos lograr que ese código sea ejecutado y que su output sea incluído automáticamente en el documento web.
+
+```{r fig.height=3, fig.width=4}
+# Este es un bloque de código R
+ggplot(data = iris, 
+       mapping = aes(
+         x = Sepal.Length, 
+         y = Petal.Length, 
+         color = Species))+
+  geom_jitter()+
+  ggtitle(label = "Gráfico de output")
+```
