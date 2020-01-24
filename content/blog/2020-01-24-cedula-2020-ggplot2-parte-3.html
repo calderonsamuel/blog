@@ -1,0 +1,64 @@
+---
+title: "Cédula Elecciones 2020 usando ggplot2 (parte 3)"
+author: "Samuel Calderon"
+date: '2020-01-24'
+slug: cedula-2020-ggplot2-parte-3
+tags:
+- cedula
+- ggplot
+categories: tutorial
+---
+
+
+
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre class="r"><code>logo_url &lt;- c(
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2160.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/1366.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/1264.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/55.JPG&quot;,
+  NA,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/1257.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2840.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/4.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2173.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/5.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2731.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/47.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/14.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2191.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/32.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2649.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2646.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2235.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2218.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/2190.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/22.JPG&quot;,
+  &quot;https://votoinformado.jne.gob.pe/voto/Resources/imgs/logoop/15.JPG&quot;
+)</code></pre>
+<pre class="r"><code>grob_url &lt;- function(fileurl){
+  if(is.na(fileurl)) return(NA)
+  img &lt;- imager::load.image(fileurl)
+  grob &lt;- grid::rasterGrob(
+    img, 
+    interpolate=TRUE)
+  
+  grob
+}</code></pre>
+<pre class="r"><code>grob &lt;- map(logo_url, grob_url) %&gt;% 
+  tibble(grob = .)</code></pre>
+<pre class="r"><code>annotations &lt;- grob %&gt;% 
+  bind_cols(preferencial) %&gt;% 
+  filter(!is.na(grob)) %&gt;% 
+  pmap(annotation_custom)</code></pre>
+<pre class="r"><code>rec_cedula &lt;- function(ggobj, .l, i = length(.l)){
+  if(i == 1){
+    ggobj + .l[[i]]
+  } else {
+    ggobj &lt;- ggobj + .l[[i]]
+    rec_cedula(ggobj, .l, i = i-1)
+  }
+}</code></pre>
+<pre class="r"><code>cedula &lt;- rec_cedula(cedula, annotations)</code></pre>
+<pre class="r"><code>cedula</code></pre>
+<p><img src="/blog/img/cedula.png" /></p>
