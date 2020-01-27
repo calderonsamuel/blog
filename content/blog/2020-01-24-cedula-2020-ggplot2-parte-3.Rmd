@@ -138,7 +138,7 @@ logo_url <- c(
 )
 ```
 
-Ahora que contamos con los enlaces, creamos una función que nos permita repetir el proceso de crear los `grob`s, de tal modo que podamos usarla sistemáticamente. La función que estamos creando, `grob_url()`, ignora los valores `NA`.
+Ahora que contamos con los enlaces, creamos una función que nos permita repetir el proceso de crear los `grob`s, de tal modo que podamos usarla sistemáticamente. La función que estamos creando, `grob_url()`, devuelve los valores `NA`. El argumento `interpolate = TRUE` dentro de `grid::rasterGrob()` ayuda a mejorar la calidad de la imagen.
 
 ```{r grob_url}
 grob_url <- function(fileurl){
@@ -152,14 +152,31 @@ grob_url <- function(fileurl){
 }
 ```
 
-
+Ahora que contamos con una función que cumple nuestros objetivos, la aplicamos a todos los enlaces contenidos en `logo_url`. Para ello hacemos uso de la función `map()` del paquete `purrr`. Debido a que `map()` siempre nos devuelve una lista, usamos la función `tibble()` para crear un objeto *tibble* con una sola columna (grob), que contiene cada uno de nuestros `grob`s. Es el mismo nombre que el primer argumento de `annotation_custom()`, y tiene un motivo que descubriremos más adelante. El objeto `grob` ahora es una tabla que contiene listas en su única columna, pero nos permite trabajar con ella como si fuera cualquier *data.frame* normal.
 
 
 ```{r grob, message=FALSE, warning=FALSE}
 grob <- map(logo_url, grob_url) %>% 
   tibble(grob = .)
+
+head(grob)
 ```
 
+Ahora podemos hacer uso de `annotation_custom()` en cada uno de nuestros `grob`s. Recordemos los argumentos que esta función necesita:
+
+1. `grob`: Es el *grob* que será dibujado en el gráfico.
+2. `xmin`: El primer valor del eje X, o posición de la esquina izquierda de la imagen.
+3. `xmax`: El segundo valor del eje X, o posición de la esquina derecha de la imagen.
+4. `ymin`: El primer valor del eje Y, o posición de la esquina inferior de la imagen.
+5. `ymax`: El segundo valor del eje Y, o posición de la esquina superior de la imagen.
+
+Ya tenemos nuestros *grobs* mapeados en el tibble `grob`, ahora necesitamos los otros cuatro argumentos. Sin embargo, estos ya los teníamos desde hace muchísimo antes. Están contenidos en el tibble `preferencial` que creamos en la [primera parte](/blog/cedula-2020-ggplot2-parte-2/) cuando usamos `geom_rect()` para dibujar los cuadros para voto preferencial.
+
+```{r}
+head(preferencial)
+```
+
+Entonces, lo que necesitamos hacer ahora es unir ambos tibbles con `bind_cols()` del paquete `dplyr()`. Luego usamos `filter()` para librarnos del valor `NA` porque ya no es útil (de hecho, si lo dejamos ocasionaremos un bug que me costó más tiempo del debido identificar). Finalmente, utilizamos `pmap()` del paquete `purrr` para usar cada fila de nuestri tibble como lista de argumentos de `annotation_custom()`. Con esto, hemos conseguido la lista `annotations` con la que podemos graficar todos los logos. 
 
 ```{r}
 annotations <- grob %>% 
@@ -168,25 +185,29 @@ annotations <- grob %>%
   pmap(annotation_custom)
 ```
 
+Sin embargo, unir todos los *annotations* no es tan sencillo como hacer `cedula + annotations` debido a que `annotation_custom()` no se comporta como un `geom_*`. Será necesario crear una función que nos permita hacer una suma recursiva de todos los elementos: `rec_ggadd()` toma un objeto de `ggplot2` y una lista para añadir recursivamente sus elementos al objeto. El tercer argumento es un iterador que permite la recursividad, y no necesita ser identificado por quien use la función.
 
 ```{r}
-rec_cedula <- function(ggobj, .l, i = length(.l)){
+rec_ggadd <- function(ggobj, lista, i = length(lista)){
   if(i == 1){
-    ggobj + .l[[i]]
+    ggobj + lista[[i]]
   } else {
-    ggobj <- ggobj + .l[[i]]
-    rec_cedula(ggobj, .l, i = i-1)
+    ggobj <- ggobj + lista[[i]]
+    rec_ggadd(ggobj, lista, i = i-1)
   }
 }
 ```
 
+Ahora sí, sólo queda aplicar la función a nuestra `cedula` y habremos conseguido lo que tanto deseábamos.
 ```{r}
-cedula <- rec_cedula(cedula, annotations)
+cedula <- rec_ggadd(cedula, annotations)
 ```
 
+Imprimimos `cedula` para ver que todo salió bien.
 ```{r print, eval=FALSE, message=FALSE, warning=FALSE}
 cedula
 ```
 
+![](/blog/2020-01-24-cedula-2020-ggplot2-parte-3_files/cedula.png){width=288px height=615px}
 
-![](/blog/img/cedula.png)
+
