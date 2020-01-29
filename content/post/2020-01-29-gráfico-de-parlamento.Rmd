@@ -14,7 +14,7 @@ knitr::opts_chunk$set(fig.width=5,fig.align="center")
 ```
 
 
-Para esta tarea vamos a hacer de dos paquetes principalmente: el viejo conocido `tidyverse` y también de `ggpol`, una extensión de ggplot2 desarrollada especialmente para este tipo de gráficos. `ggforce` nos servirá al final sólo para una mejora estética.
+Para esta tarea vamos a hacer de uso dos paquetes principalmente: el viejo conocido `tidyverse` y también de `ggpol`, una extensión de ggplot2 desarrollada especialmente para este tipo de gráficos. `ggforce` nos servirá al final sólo para una mejora estética.
 
 
 ```{r library, message=FALSE, warning=FALSE}
