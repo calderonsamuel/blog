@@ -11,14 +11,14 @@ tags: []
 .dashboard-container {
 position: relative;
 overflow: hidden;
-padding-top: 133%;
+padding-top: 100%;
 }
 .dashboard-iframe {
 position: absolute;
 top: 0;
 left: 0;
 width: 100%;
-height: 60%;
+height: 75%;
 border: 0;
 }
 </style>
