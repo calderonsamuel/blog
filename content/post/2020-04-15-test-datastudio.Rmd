@@ -1,0 +1,11 @@
+---
+title: test_datastudio
+author: Samuel Calderon
+date: '2020-04-15'
+slug: test-datastudio
+categories: []
+tags: []
+---
+## Prueba de inserción de reporte en DataStudio en static web
+
+<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/3932eb5e-f749-42d3-9369-03b82338aa33/page/qgWMB" frameborder="0" style="border:0" allowfullscreen></iframe>
