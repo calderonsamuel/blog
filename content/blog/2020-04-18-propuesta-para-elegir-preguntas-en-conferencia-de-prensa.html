@@ -103,10 +103,10 @@ microbenchmark::microbenchmark(
   `1000`= {crear_contraseñas(alfanumericos, 1000)}
     )</code></pre>
 <pre><code>Unit: milliseconds
- expr      min       lq      mean   median        uq      max neval
-  300 2.184676 2.276219  5.326249 2.334866  2.395005 51.27618   100
-  500 3.651028 3.792581  8.680584 3.892961  4.143676 53.44209   100
- 1000 7.239532 7.617114 15.957648 7.767254 10.584851 67.91936   100</code></pre>
+ expr      min       lq     mean   median       uq       max neval
+  300 2.156777 2.250744 2.424395 2.292532 2.346861  8.329532   100
+  500 3.611727 3.734703 4.234030 3.815006 3.908760 16.303134   100
+ 1000 7.186664 7.492800 8.580359 7.661072 7.877665 19.332310   100</code></pre>
 <p>Viendo el cruce de la fila “1000” con la columna “mean”, vemos que en promedio requiere menos de 9 milisegundos crear 1000 contraseñas diferentes. Usando 16 caracteres alfanuméricos, es posible obtener hasta <span class="math inline">\(62^{16}\)</span> contraseñas únicas (equivalente a <span class="math inline">\(4.76*10^{28}\)</span>).</p>
 </div>
 </div>

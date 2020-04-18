@@ -125,7 +125,7 @@ microbenchmark::microbenchmark(
 
 ```
 
-Viendo el cruce de la fila "1000" con la columna "mean", vemos que en promedio requiere menos de 9 milisegundos crear 1000 contraseñas diferentes. Usando 16 caracteres alfanuméricos, es posible obtener hasta $62^{16}$ contraseñas únicas (equivalente a $4.76*10^{28}$).
+Viendo el cruce de la fila "1000" con la columna "mean", vemos que en promedio requiere menos de 9 milisegundos crear 1000 contraseñas diferentes. Usando 16 caracteres alfanuméricos, es posible obtener hasta $62^{16}$ contraseñas únicas (equivalente a $4.76*10^{28}$). 
 
 
 [^1]: Utilizo en un bloque oculto `DT::datatable()` para imprimir la tabla con el formato adecuado. 
